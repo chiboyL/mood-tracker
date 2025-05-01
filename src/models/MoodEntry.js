@@ -5,4 +5,7 @@ export default class MoodEntry {
         this.reflection = reflection,
         this.feelings = feelings
     }
+    displayEntry(){
+        return `On ${this.date}, Mood: ${this.mood}, Sleep: ${this.sleep} hrs. Reflection: ${this.reflection}, Feelings: ${this.feelings}`;
+    }
 }
