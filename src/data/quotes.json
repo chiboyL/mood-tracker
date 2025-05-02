@@ -1,0 +1,22 @@
+{
+    "sad": [
+      "Even the darkest night will end and the sun will rise.",
+      "It's okay to feel sad. Brighter days are coming."
+    ],
+    "meh": [
+      "You don't have to be perfect, just keep going.",
+      "Meh days happen. Rest, then rise."
+    ],
+    "neutral": [
+      "Sometimes neutral is a step up. Keep steady.",
+      "Balance is strength too."
+    ],
+    "happy": [
+      "Happiness is a journey, not a destination.",
+      "Let your smile brighten someone's day."
+    ],
+    "excited": [
+      "Your energy is contagious—go for it!",
+      "You're on fire! Keep that momentum going!"
+    ]
+  }
