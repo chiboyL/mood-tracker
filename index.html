@@ -2,15 +2,195 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>mood tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
-  <body>
+  <body class="bg-gray-100">
     <div id="app">
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <header class="flex justify-between items-center p-6">
+        <span class="text-xl text-blue-900 font-semibold ">Mood tracker</span>
+        <div class="profile-upload flex items-center gap-3">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-9 h-9 rounded-full object-cover">
+          <i class="fa fa-angle-down text-sm"></i>
+        </div>
+      </header>
+
+      <!-- how are you feeling? -->
+      <section class="flex flex-col items-center gap-4 justify-center max-w-50 p-5">
+        <p class="text-2xl font-semibold text-blue-600">Hello, Lisa!</p>
+        <h1 class="text-5xl text-center font-bold">How are you feeling today?</h1>
+        <p class="text-purple-900">Wednesday, April 16th, 2025</p>
+      </section>
+
+      <!-- How are you feeling section -->
+
+      <!-- <section class="m-5 p-5 rounded-xl flex flex-col bg-white md:relative md:flex-row md:items-center">
+        <div class="flex flex-col md:flex-col md:items-start md:flex-1">
+          <div>
+            <p class="text-gray-500 font-bold text-4xl text-center md:text-left">I'm feeling</p>
+            <h1 class="font-bold text-5xl text-center md:text-left">Very Happy</h1>
+          </div>
+          Image comes before the quote section for mobile stacking
+          <img src="/happyemjione.png"
+               alt=""
+               width="100%"
+               class="mx-auto my-4 w-32 h-32 md:absolute md:right-5 md:top-1/2 md:-translate-y-1/2 md:w-72 md:h-72 lg:w-[32rem] lg:h-[32rem] md:my-0 object-contain" />
+          <div class="flex flex-col gap-5 content-center items-center md:items-start md:text-left mt-4 md:mt-0">
+            <span class="text-7xl fa fa-quote-left text-blue-700"></span>
+            <p class="text-lg italic text-center md:text-left">"When your heart is full, share your light with the world."</p>
+          </div>
+        </div>
+      </section>
+
+      the sleep time section
+      
+      <section class="m-5 p-5 rounded-xl flex flex-col bg-white gap-2">
+       <div class="flex items-center gap-3">
+         <i class="fa-solid fa-bed text-xl"></i>
+         <p class="text-xl">Sleep</p>
+       </div>
+       <p class="font-semibold text-4xl"> 9+ hours</p>
+      </section>
+
+      the reflection section
+
+      <section class="m-5 p-5 rounded-xl flex flex-col bg-white gap-2">
+       <div class="flex items-center gap-3">
+         <i class="fa-solid fa-star text-1xl"></i>
+         <p class="text-xl">Reflection of the day</p>
+       </div>
+       <p class="font-semibold"> Woke up early and finally tackeld a big project!</p>
+      </section> -->
+
+
+
+      <!-- New User viewss -->
+       <section class="flex items-center justify-center text-white ">
+        <button id="openMoodModal" class="bg-purple-700 py-2 px-4 rounded-xl hover:bg-purple-600 transition-colors duration-300">Log today's mood</button>
+       </section>
+
+      <!-- Mood Modal Overlay -->
+      <div id="moodModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+          <button id="closeMoodModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Log your mood</h2>
+          <div class="flex items-center gap-2 mb-6">
+            <div class="h-1 w-1/4 bg-blue-500 rounded"></div>
+            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
+            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
+            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
+          </div>
+          <form class="flex flex-col gap-6">
+            <div>
+              <label class="block text-lg font-semibold text-gray-700 mb-4">How was your mood today?</label>
+              <div class="flex flex-col gap-3">
+                <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-blue-400 peer-checked:border-blue-500 bg-white">
+                  <span class="flex items-center gap-3">
+                    <input type="radio" name="mood" value="Very Happy" class="accent-blue-500 mr-2" checked>
+                    Very Happy
+                  </span>
+                  <span class="text-2xl">😊</span>
+                </label>
+                <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-green-400 bg-white">
+                  <span class="flex items-center gap-3">
+                    <input type="radio" name="mood" value="Happy" class="accent-green-500 mr-2">
+                    Happy
+                  </span>
+                  <span class="text-2xl">🟢</span>
+                </label>
+                <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-blue-400 bg-white">
+                  <span class="flex items-center gap-3">
+                    <input type="radio" name="mood" value="Neutral" class="accent-blue-400 mr-2">
+                    Neutral
+                  </span>
+                  <span class="text-2xl">🟦</span>
+                </label>
+                <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-purple-400 bg-white">
+                  <span class="flex items-center gap-3">
+                    <input type="radio" name="mood" value="Sad" class="accent-purple-400 mr-2">
+                    Sad
+                  </span>
+                  <span class="text-2xl">🟣</span>
+                </label>
+                <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-red-400 bg-white">
+                  <span class="flex items-center gap-3">
+                    <input type="radio" name="mood" value="Very Sad" class="accent-red-400 mr-2">
+                    Very Sad
+                  </span>
+                  <span class="text-2xl">🔴</span>
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-2">Continue</button>
+          </form>
+        </div>
+      </div>
+      <script>
+        // Modal open/close logic
+        document.getElementById('openMoodModal').onclick = function() {
+          document.getElementById('moodModal').classList.remove('hidden');
+        };
+        document.getElementById('closeMoodModal').onclick = function() {
+          document.getElementById('moodModal').classList.add('hidden');
+        };
+        // Optional: Close modal when clicking outside the form
+        document.getElementById('moodModal').onclick = function(e) {
+          if (e.target === this) this.classList.add('hidden');
+        };
+      </script>
+       
+
+
+
+
+
+      <!-- Average section -->
+
+      <section class="bg-white m-5 rounded-xl">
+
+
+        <!-- Average mood section -->
+
+        <div class="p-5">
+          <p class="mb-5"> <span class="font-semibold">Average Mood</span> (Last 5 check in)</p>
+          <div class="bg-blue-300 cursor-pointer p-5 rounded-xl flex flex-col gap-5 hover:bg-blue-200 transition-colors duration-300 ">
+            <div class="flex items-center gap-5 content-center">
+              <i class="fa fa-bed text-white"></i>
+              <p class="font-semibold">Neutral</p>
+            </div>
+            <div class="flex items-center gap-5">
+              <i class="fa fa-arrow-right"></i>
+              <p>Same as the previous 5 check-ins</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Average Sleep (Last 5 check-ins) -->
+        <div class="p-5">
+          <p class="mb-5"> <span class="font-semibold">Average Sleep</span> (Last 5 check in)</p>
+          <div class="bg-purple-700 cursor-pointer p-5 rounded-xl flex flex-col gap-5 text-white hover:bg-purple-600 transition-colors duration-300 ">
+            <div class="flex items-center gap-5 content-center">
+              <i class="fa fa-bed text-white"></i>
+              <p class="font-semibold">5-6 Hours</p>
+            </div>
+            <div class="flex items-center gap-5">
+              <i class="fa fa-arrow-right"></i>
+              <p>Increase from the previous 5 check-ins</p>
+            </div>
+          </div>
+        </div>
+        
+      </section>
+
+      <!-- Mood and sleep trends -->
+      <section>
+        <h1>Mood and sleep trends</h1>
+
+      </section>
+
+
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
