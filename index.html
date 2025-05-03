@@ -5,6 +5,8 @@
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mood tracker</title>
+    <!-- <script src="./src/utils/pageUI.js"></script> -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body class="bg-gray-100">
@@ -76,19 +78,20 @@
         <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
           <button id="closeMoodModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
           <h2 class="text-2xl font-bold text-gray-800 mb-2">Log your mood</h2>
-          <div class="flex items-center gap-2 mb-6">
-            <div class="h-1 w-1/4 bg-blue-500 rounded"></div>
-            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
-            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
-            <div class="h-1 w-1/4 bg-blue-200 rounded"></div>
+          <div class="flex items-center gap-2 mb-6" id="progressIndicator">
+            <div id="bar-1" class="h-1 w-1/4 bg-blue-500 rounded transition-all duration-300"></div>
+            <div id="bar-2" class="h-1 w-1/4 bg-blue-200 rounded transition-all duration-300"></div>
+            <div id="bar-3" class="h-1 w-1/4 bg-blue-200 rounded transition-all duration-300"></div>
+            <div id="bar-4" class="h-1 w-1/4 bg-blue-200 rounded transition-all duration-300"></div>
           </div>
-          <form class="flex flex-col gap-6">
-            <div>
+          <form id="moodForm" class="flex flex-col gap-6">
+            <!-- Step 1: Mood Selection -->
+            <div id="stepMood" class="transition-opacity duration-500 opacity-100">
               <label class="block text-lg font-semibold text-gray-700 mb-4">How was your mood today?</label>
               <div class="flex flex-col gap-3">
                 <label class="flex items-center justify-between px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:border-blue-400 peer-checked:border-blue-500 bg-white">
                   <span class="flex items-center gap-3">
-                    <input type="radio" name="mood" value="Very Happy" class="accent-blue-500 mr-2" checked>
+                    <input type="radio" name="mood" value="Very Happy" class="accent-blue-500 mr-2" required>
                     Very Happy
                   </span>
                   <span class="text-2xl">😊</span>
@@ -122,25 +125,44 @@
                   <span class="text-2xl">🔴</span>
                 </label>
               </div>
+              <button id="continueToSleep" type="button" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-6">Continue</button>
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-2">Continue</button>
+            <!-- Step 2: Sleep Hours -->
+            <div id="stepSleep" class="hidden transition-opacity duration-500 opacity-0">
+              <label class="block text-lg font-semibold text-gray-700 mb-4">How many hours did you sleep?</label>
+              <div class="flex items-center gap-4">
+                <input id="sleepRange" type="range" min="0" max="12" value="8" class="w-full accent-blue-500" required oninput="document.getElementById('sleepValue').textContent = this.value">
+                <span id="sleepValue" class="font-bold text-blue-600 text-xl">8</span>
+                <span class="text-gray-400 text-sm">hrs</span>
+              </div>
+              <div class="flex justify-between text-xs text-gray-400 mt-1">
+                <span>0</span>
+                <span>12</span>
+              </div>
+              <button id="continueToReflection" type="button" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-6">Continue</button>
+            </div>
+            <!-- Step 3: Reflection -->
+            <div id="stepReflection" class="hidden transition-opacity duration-500 opacity-0">
+              <label class="block text-lg font-semibold text-gray-700 mb-4">Reflection for today</label>
+              <textarea id="reflectionInput" class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300" rows="4" placeholder="Share your thoughts..." required></textarea>
+              <button id="continueToTags" type="button" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-6">Continue</button>
+            </div>
+            <!-- Step 4: Emotional Context Tags -->
+            <div id="stepTags" class="hidden transition-opacity duration-500 opacity-0">
+              <label class="block text-lg font-semibold text-gray-700 mb-4">Add emotional context <span class="text-gray-400 font-normal">(comma or space separated)</span></label>
+              <input id="tagsInput" type="text" class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300" placeholder="e.g. grateful, anxious, excited">
+              <button id="finishBtn" type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition-colors duration-300 text-white font-semibold py-3 rounded-xl text-lg mt-6">Finish</button>
+            </div>
           </form>
+          <!-- Submission confirmation message -->
+          <div id="submissionMessage" class="hidden flex flex-col items-center justify-center py-10 transition-opacity duration-500 opacity-0">
+            <span class="text-3xl text-green-600 mb-4"><i class="fa fa-check-circle"></i></span>
+            <p class="text-xl font-semibold text-gray-800 mb-2">Your inputs have been submitted!</p>
+            <p class="text-gray-500">You will be redirected in a moment...</p>
+          </div>
         </div>
       </div>
-      <script>
-        // Modal open/close logic
-        document.getElementById('openMoodModal').onclick = function() {
-          document.getElementById('moodModal').classList.remove('hidden');
-        };
-        document.getElementById('closeMoodModal').onclick = function() {
-          document.getElementById('moodModal').classList.add('hidden');
-        };
-        // Optional: Close modal when clicking outside the form
-        document.getElementById('moodModal').onclick = function(e) {
-          if (e.target === this) this.classList.add('hidden');
-        };
-      </script>
-       
+     
 
 
 
@@ -193,5 +215,7 @@
 
     </div>
     <script type="module" src="/src/main.js"></script>
+   <script type="module" src="/src/modalUI.js"></script>
+    <!-- <script type="module" src="/src/formData/formData.js"></script> -->
   </body>
 </html>

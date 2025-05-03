@@ -1,3 +1,5 @@
+
+import { saveEntries } from "../utils/storage";
 import { moodToScore } from "../utils/moodToScore";
 import { calculateAverage } from "../utils/calculateAverage";
 export default class EntryManager {
@@ -6,6 +8,7 @@ export default class EntryManager {
     }
     addEntry(entry){
         this.entry.push(entry);
+        saveEntries(this.entry);
     }
     getLastestEntry(){
         return this.entry[this.entry.length - 1];
